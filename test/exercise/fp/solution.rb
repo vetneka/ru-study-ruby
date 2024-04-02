@@ -17,8 +17,14 @@ module Exercise
         films_ratings.length.positive? ? rating_sum / films_ratings.length : 0
       end
 
-      def chars_count(_films, _threshold)
-        0
+      def chars_count(films, threshold)
+        search_symbol = 'и'
+
+        films_names = films.map { |film| film['rating_kinopoisk'].to_f >= threshold ? film['name'] : nil }.compact
+
+        films_names.reduce(0) do |accumulator, film_name|
+          accumulator + film_name.count(search_symbol)
+        end
       end
     end
   end
