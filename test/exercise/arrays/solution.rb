@@ -24,8 +24,28 @@ module Exercise
         result
       end
 
+      def search_iterate(array, query, left_index, rigth_index)
+        if left_index > rigth_index
+          return -1
+        end
+
+        middle_index = (left_index + rigth_index) / 2
+        current_value = array[middle_index]
+
+        if current_value == query
+          return middle_index
+        elsif current_value < query
+          search_iterate(array, query, middle_index + 1, rigth_index)
+        else
+          search_iterate(array, query, left_index, middle_index - 1)
+        end
+      end
+
       def search(_array, _query)
-        0
+        left_index = 0
+        right_index = _array.length - 1
+        
+        search_iterate(_array, _query, left_index, right_index)
       end
     end
   end
