@@ -5,9 +5,7 @@ module Exercise
         max_value = array[0]
 
         for item in array do
-          if item > max_value
-            max_value = item 
-          end
+          max_value = item if item > max_value
         end
 
         max_value
@@ -25,15 +23,13 @@ module Exercise
       end
 
       def search_iterate(array, query, left_index, rigth_index)
-        if left_index > rigth_index
-          return -1
-        end
+        return -1 if left_index > rigth_index
 
         middle_index = (left_index + rigth_index) / 2
         current_value = array[middle_index]
 
         if current_value == query
-          return middle_index
+          middle_index
         elsif current_value < query
           search_iterate(array, query, middle_index + 1, rigth_index)
         else
@@ -41,11 +37,11 @@ module Exercise
         end
       end
 
-      def search(_array, _query)
+      def search(array, query)
         left_index = 0
         right_index = _array.length - 1
-        
-        search_iterate(_array, _query, left_index, right_index)
+
+        search_iterate(array, query, left_index, right_index)
       end
     end
   end
