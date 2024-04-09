@@ -19,22 +19,25 @@ module Exercise
         array.map { |item| item.positive? ? max_value : item }
       end
 
-      def search_iterate(array, query, left_index = 0, right_index = array.length - 1)
-        query_exist_in_array = query >= array[left_index].to_f && query <= array[right_index].to_f
-        left_index_more_then_right_index = left_index > right_index
-
-        return -1 if !query_exist_in_array || left_index_more_then_right_index
+      def search(array, query, left_index = 0, right_index = array.length - 1)
+        return -1 if end_of_search?(array, query, left_index, right_index)
 
         middle_index = (left_index + right_index) / 2
         current_value = array[middle_index]
 
         return middle_index if current_value == query
 
-        current_value < query ? search_iterate(array, query, middle_index + 1, right_index) : search_iterate(array, query, left_index, middle_index - 1)
+        current_value < query ? search(array, query, middle_index + 1, right_index) : search(array, query, left_index, middle_index - 1)
       end
 
-      def search(array, query)
-        search_iterate(array, query)
+      private
+
+      def query_exist_in_array?(array, query, left_index, right_index)
+        query >= array[left_index].to_f && query <= array[right_index].to_f
+      end
+
+      def end_of_search?(array, query, left_index, right_index)
+        !query_exist_in_array?(array, query, left_index, right_index) || left_index > right_index
       end
     end
   end
